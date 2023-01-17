@@ -16,3 +16,12 @@ You may also see any lint errors in the console.
 
 ---
 ### Used for Fed.
+---
+### Packages
+1. axios
+2. react-query
+   - npm i @tanstack/react-query
+3. chakra ui
+   - npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion
+4. react-router-dom
+   - npm install react-router-dom
