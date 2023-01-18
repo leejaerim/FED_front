@@ -5,7 +5,7 @@ export default function Job(prop){
     return (
         <div>
             <Text>
-                TEST
+                {prop?.target.emp_id} : {prop?.target.emp_title}
             </Text>
         </div>
     )
