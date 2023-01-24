@@ -25,3 +25,5 @@ You may also see any lint errors in the console.
    - npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion
 4. react-router-dom
    - npm install react-router-dom
+5. react icons
+   - npm install react-icons --save 

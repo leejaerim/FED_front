@@ -5,11 +5,10 @@ import {getCompany} from "../api/api_company";
 const Company =_=>{
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { isLoading, data } = useQuery(["company"], getCompany);
-    console.log(data)
     return(
         <div>
             {!isLoading && data?.map((company)=>(
-                <div>
+                <div key={company?.company_id}>
                     <Text>
                         {company?.company_id} : {company?.company_name}
                     </Text>

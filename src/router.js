@@ -3,6 +3,8 @@ import Home from "./routers/Home";
 import App from "./App";
 import NotFound from "./routers/NotFound";
 import Company from "./components/Company";
+import React from "react";
+import JobDetail from "./routers/JobDetail";
 
 const router = createBrowserRouter([
     {
@@ -13,6 +15,14 @@ const router = createBrowserRouter([
             {
                 path: "",
                 element: <Home></Home>,
+            },
+            {
+                path: "jobs/",
+                element: <Home></Home>,
+            },
+            {
+                path: "job/:jobid",
+                element: <JobDetail></JobDetail>,
             },
             {
                 path: "company/",
