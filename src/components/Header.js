@@ -1,8 +1,10 @@
 
 import * as PropTypes from "prop-types";
 import {FaAirbnb, FaReact} from "react-icons/fa";
-import {Box, HStack, Icon, IconButton, Stack, useColorModeValue} from "@chakra-ui/react";
-export default function Header() {
+import {HStack, Text, Stack, useTheme} from "@chakra-ui/react";
+import React from "react";
+export default function Header(props) {
+    const theme = useTheme();
     return(
         <Stack
             justifyContent={"space-between"}
@@ -19,9 +21,12 @@ export default function Header() {
                 md: 0,
             }}
         >
-            <Box color={"blue"}>
-                <FaReact size={"38"} />
-            </Box>
+            <HStack color={theme.extend_Theme.colors.main} fontSize={50} fontWeight={'bold'}>
+                <FaReact size={"38"} style={{paddingRight:10}}/>
+                <Text>
+                FED
+                </Text>
+            </HStack>
         </Stack>
     )
 }
