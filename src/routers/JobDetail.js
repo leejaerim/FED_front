@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {getJob} from "../api/api_jobs";
-import Stack from "../components/Stack";
+import {Stack} from "../components/Stack";
 
 const JobDetail =_=>{
     const {jobid} = useParams();
     const { isLoading, data:jobdata } = useQuery([`jobs`, jobid], getJob);
-    console.log(jobdata)
     return(
         <div>
             {!isLoading?

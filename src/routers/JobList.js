@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import {Button, Stack, useTheme} from "@chakra-ui/react";
 import Pagination from "../components/Pagination";
 
-export default function Home(){
+export default function JobList(){
     const [page, setPage] = useState(1);
     const { isLoading, data, refetch } = useQuery([`jobs`, page], getJobs);
     const theme = useTheme();

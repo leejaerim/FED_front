@@ -1,10 +1,12 @@
 import {createBrowserRouter} from "react-router-dom";
-import Home from "./routers/Home";
+import Home from "./routers/JobList";
 import App from "./App";
 import NotFound from "./routers/NotFound";
 import Company from "./components/Company";
 import React from "react";
 import JobDetail from "./routers/JobDetail";
+import JobList from "./routers/JobList";
+import {Stacks} from "./components/Stack";
 
 const router = createBrowserRouter([
     {
@@ -14,11 +16,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <Home></Home>,
+                element: <Company></Company>,
             },
             {
                 path: "jobs/",
-                element: <Home></Home>,
+                element: <JobList></JobList>,
             },
             {
                 path: "job/:jobid",
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "company/",
                 element: <Company></Company>,
+            },
+            {
+                path: "stack/",
+                element: <Stacks></Stacks>,
             },
         ],
     },
