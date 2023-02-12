@@ -29,7 +29,7 @@ const Company =_=>{
 
                     <Stack>
                         <CardBody>
-                            <Link to={"id/"+company?.company_id}>
+                            <Link to={"/company/id/"+company?.company_id}>
                                 <Heading size='md'>{company.company_name}</Heading>
                             </Link>
                                 <HStack><FaGlobe /> <Text py='2'> {company.country} </Text></HStack>

@@ -6,7 +6,8 @@ import Company from "./components/Company";
 import React from "react";
 import JobDetail from "./routers/JobDetail";
 import JobList from "./routers/JobList";
-import {Stacks} from "./components/Stack";
+import {Stack, Stacks} from "./components/Stack";
+import CompanyDetail from "./components/CompanyDetail";
 
 const router = createBrowserRouter([
     {
@@ -31,8 +32,16 @@ const router = createBrowserRouter([
                 element: <Company></Company>,
             },
             {
+                path: "company/id/:company_id",
+                element: <CompanyDetail></CompanyDetail>,
+            },
+            {
                 path: "stack/",
                 element: <Stacks></Stacks>,
+            },
+            {
+                path: "stack/:stackid",
+                element: <Stack></Stack>,
             },
         ],
     },
