@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
-        <Home_tab></Home_tab>
+        <Home_tab linkList={['company','jobs','stack']}></Home_tab>
     </div>
   );
 }

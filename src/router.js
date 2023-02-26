@@ -8,6 +8,8 @@ import JobDetail from "./routers/JobDetail";
 import JobList from "./routers/JobList";
 import {Stack, Stacks} from "./components/Stack";
 import CompanyDetail from "./components/CompanyDetail";
+import AdminPage from "./routers/AdminPage";
+import {Box} from "@chakra-ui/react";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +44,21 @@ const router = createBrowserRouter([
             {
                 path: "stack/:stackid",
                 element: <Stack></Stack>,
+            },
+        ],
+    },
+    {
+        path:"/admin",
+        element: <AdminPage/>,
+        errorElement : <NotFound></NotFound>,
+        children: [
+            {
+                path: "",
+                element: <Box></Box>,
+            },
+            {
+                path: "stack/",
+                element: <Box></Box>,
             },
         ],
     },
