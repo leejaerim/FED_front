@@ -1,8 +1,22 @@
 import {getCompany_by_id, getStack_by_id} from "../api/api_company";
 import {Link, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {Box, Grid, Heading, Image} from "@chakra-ui/react";
-import {useEffect} from "react";
+import {
+    Box,
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    Divider,
+    Grid,
+    Heading, HStack,
+    Image,
+    Stack,
+    Text,
+    VStack
+} from "@chakra-ui/react";
+import React, {useEffect} from "react";
+import {FaGlobe, FaLocationArrow, FaSearchLocation} from "react-icons/fa";
 const {kakao} = window;
 const CompanyDetail=()=>{
     const {company_id} = useParams();
@@ -28,15 +42,42 @@ const CompanyDetail=()=>{
     if(!isLoading){
         geocoder.addressSearch(data.location, callback);
     }
+    console.log(data)
     return (
         <Box>
+            <Card
+                direction={{ base: 'column', sm: 'row' }}
+                overflow='hidden'
+                variant='outline'
+            >
+                <Image
+                    objectFit='contain'
+                    maxW={{ base: '100%', sm: '200px' }}
+                    src={data?.logo}
+                />
+
+                <Stack>
+                    <CardBody>
+                        <Heading size='md'>{data?.company_name}</Heading>
+                        <HStack>
+                        <FaGlobe></FaGlobe>
+                        <Text py='2'>
+                             {data?.country}
+                        </Text>
+                        </HStack>
+                        <HStack>
+                            <FaLocationArrow></FaLocationArrow>
+                            <Text>{data?.location}</Text>
+                        </HStack>
+                    </CardBody>
+                </Stack>
+                <div id="map" style={{width: '20vw', height: '20vh'}}/>
+
+            </Card>
                 <Box>
-                    <img src={data?.logo}></img>
-                    <Heading>{data?.company_name}</Heading>
-                    <li>
-                        location : {data?.country}
-                    </li>
-                    <div id="map" style={{width: '40vw', height: '40vh'}}/>
+                    <Heading>Stack</Heading>
+                    {!StackIsLoading ? <Text>총 {StackData.length} 개의 스택</Text> : ''}
+                    <Divider/>
                     <Grid
                         mt={10}
                         px={{base: 10, lg: 10}}
@@ -45,13 +86,13 @@ const CompanyDetail=()=>{
                         templateColumns={{
                             sm: "1fr",
                             md: "1fr 1fr",
-                            lg: "repeat(3, 1fr)",
-                            xl: "repeat(6, 1fr)",
+                            lg: "repeat(8, 1fr)",
+                            xl: "repeat(10, 1fr)",
                         }}
                     >
                     {!StackIsLoading && StackData.map((stack)=>(
                         <Image borderRadius='full'
-                               boxSize='150px' maxW='200px;' maxH='200px;' src={stack.img} alt={stack.stack_name}></Image>
+                               boxSize='70px' maxW='70px;' maxH='70px;' src={stack.img} alt={stack.stack_name}></Image>
 
                     ))}
                     </Grid>

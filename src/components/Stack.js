@@ -1,37 +1,46 @@
 import {useQuery} from "@tanstack/react-query";
 import {getCompanyFromStack, getStack, getStacks} from "../api/api_stack";
-import {Box, Grid, HStack, Text, VStack} from "@chakra-ui/react";
+import {Box, CardHeader, Grid, HStack, SimpleGrid, Text, VStack} from "@chakra-ui/react";
 import { Card, ButtonGroup, Button, CardBody, CardFooter, Image, Heading, Divider} from '@chakra-ui/react'
 import {Link, useParams} from "react-router-dom";
+import React from "react";
 const Stack =()=>{
     const {stackid} = useParams();
     const { isLoading, data } = useQuery([`stack`, stackid], getStack);
     const { isLoading:StackIsLoading, data:StackCompany } = useQuery([`stackCompany`, stackid], getCompanyFromStack);
+    console.log(data)
     return(
         <Box>
-            {!isLoading ? <VStack>
-                    <Image src={data[0]?.img}></Image><Heading>{data[0]?.stack_name}</Heading></VStack>
+            {!isLoading && data ?
+                <Box>
+                <HStack justifyContent={'center'}>
+                    <Image maxH={'120px;'} maxW={'120px;'} src={data[0].img}></Image>
+                    <VStack>
+                    <Heading>{data[0].stack_name}</Heading>
+                        <Text>{data[0].description}</Text>
+                    </VStack>
+                </HStack>
+                <Divider mt={'10px;'}/>
+                </Box>
                 : ''}
-            <Grid
-                mt={10}
-                px={{base: 10, lg: 10}}
-                columnGap={8}
-                rowGap={3}
-                templateColumns={{
-                    sm: "1fr",
-                    md: "1fr 1fr",
-                    lg: "repeat(3, 1fr)",
-                    xl: "repeat(6, 1fr)",
-                }}
-            >
+            <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
                 {!StackIsLoading && StackCompany.map((company)=>(
-                    <Link to={"/company/id/"+company?.company_id}>
-                    <Image borderRadius='full'
-                           boxSize='150px' maxW='200px;' maxH='200px;' src={company.logo} alt={company.company_name}></Image>
+                    <Link key={company?.company_id} to={"/company/id/"+company?.company_id}>
+                        <Card>
+                            <CardHeader>
+                                <Heading fontSize={'min(1.0vw,30px)'} size='md' textAlign={'center'}>{company.company_name}</Heading>
+                            </CardHeader>
+                            <CardBody>
+                                <Image margin={"auto"} borderRadius='full'
+                                       boxSize='150px' maxW='200px;' maxH='200px;' src={company.logo} alt={company.company_name}></Image>
+                            </CardBody>
+                            <CardFooter>
+                                <Button margin={"auto"} colorScheme={"twitter"}>View here</Button>
+                            </CardFooter>
+                        </Card>
                     </Link>
                 ))}
-            </Grid>
-
+            </SimpleGrid>
         </Box>
     )
 }
