@@ -23,7 +23,7 @@ const CompanyDetail=()=>{
     const { isLoading, data } = useQuery([`company_id`,company_id], getCompany_by_id);
     const { isLoading:StackIsLoading, data:StackData } = useQuery([`company_stack`,company_id], getStack_by_id);
     const geocoder = new kakao.maps.services.Geocoder();
-
+    const type = {'LG':[],'FE':[],'BE':[],'DB':[],'MO':[],'DE':[],'CO':[],'UI':[]}
     const callback = function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             const container = document.getElementById('map');
@@ -42,61 +42,77 @@ const CompanyDetail=()=>{
     if(!isLoading){
         geocoder.addressSearch(data.location, callback);
     }
-    console.log(data)
-    return (
-        <Box>
-            <Card
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'
-            >
-                <Image
-                    objectFit='contain'
-                    maxW={{ base: '100%', sm: '200px' }}
-                    src={data?.logo}
-                />
-
-                <Stack>
-                    <CardBody>
-                        <Heading size='md'>{data?.company_name}</Heading>
-                        <HStack>
-                        <FaGlobe></FaGlobe>
-                        <Text py='2'>
-                             {data?.country}
-                        </Text>
-                        </HStack>
-                        <HStack>
-                            <FaLocationArrow></FaLocationArrow>
-                            <Text>{data?.location}</Text>
-                        </HStack>
-                    </CardBody>
-                </Stack>
-                <div id="map" style={{width: '20vw', height: '20vh'}}/>
-
-            </Card>
-                <Box>
-                    <Heading>Stack</Heading>
-                    {!StackIsLoading ? <Text>총 {StackData.length} 개의 스택</Text> : ''}
-                    <Divider/>
-                    <Grid
-                        mt={10}
-                        px={{base: 10, lg: 10}}
-                        columnGap={8}
-                        rowGap={3}
-                        templateColumns={{
-                            sm: "1fr",
-                            md: "1fr 1fr",
-                            lg: "repeat(8, 1fr)",
-                            xl: "repeat(10, 1fr)",
-                        }}
-                    >
-                    {!StackIsLoading && StackData.map((stack)=>(
+    if(!StackIsLoading){
+        StackData.map(stack=>{
+            type[stack.type].push(stack)
+        })
+    }
+    const render = _ => {
+        const items = []
+        for (let key in type) {
+            items.push(<Box>
+                <Heading>{key}</Heading>
+                <Text>총 {type[key].length} 개의 스택</Text>
+                <Divider/>
+                <Grid
+                    mt={5}
+                    px={{base: 10, lg: 10}}
+                    columnGap={8}
+                    rowGap={3}
+                    templateColumns={{
+                        sm: "1fr",
+                        md: "1fr 1fr",
+                        lg: "repeat(8, 1fr)",
+                        xl: "repeat(10, 1fr)",
+                    }}
+                >
+                    {type[key].map((stack) => (
                         <Image borderRadius='full'
                                boxSize='70px' maxW='70px;' maxH='70px;' src={stack.img} alt={stack.stack_name}></Image>
 
                     ))}
-                    </Grid>
+                </Grid>
+            </Box>)
+        }
+        return items
+    }
+    return (
+        <Box>
+            <HStack>
+                <VStack>
+                    <Image
+                        objectFit='contain'
+                        maxW={{ base: '100%', sm: '200px' }}
+                        src={data?.logo}
+                        w={"100%"}
+                        h={"100%"}
+                    />
+                    <Card
+                        direction={{ base: 'column', sm: 'row' }}
+                        overflow='hidden'
+                        variant='outline'
+                    >
+                        <CardBody>
+                            <Heading size='md'>{data?.company_name}</Heading>
+                            <HStack>
+                                <FaGlobe></FaGlobe>
+                                <Text py='2'>
+                                    {data?.country}
+                                </Text>
+                            </HStack>
+                            <HStack>
+                                <FaLocationArrow></FaLocationArrow>
+                                <Text>{data?.location}</Text>
+                            </HStack>
+                        </CardBody>
+                    </Card>
+                    <div id="map" style={{width: '26vw', height: '20vh'}}/>
+                </VStack>
+                <Box>
+                    {!StackIsLoading && render()}
                 </Box>
+            </HStack>
+
         </Box>
     )
 
