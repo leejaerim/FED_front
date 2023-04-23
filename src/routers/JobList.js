@@ -21,8 +21,7 @@ export default function JobList(){
                     </Job>
             ))}
             </ul>
-
-            <Pagination total={data?.total} change_page={change_page} />
+            <Pagination total={data?.total} change_page={change_page} page={page} />
         </div>
     )
 }

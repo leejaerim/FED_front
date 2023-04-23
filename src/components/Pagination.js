@@ -1,18 +1,26 @@
 import {Button, HStack, Stack, Text, useTheme} from "@chakra-ui/react";
 import React from "react";
-import {Link} from "react-router-dom";
-
-const Pagination =({total = 1, limit = 20, change_page})=>{
+import "./Pagination.css";
+import {FaStepBackward, FaStepForward} from "react-icons/fa";
+const Pagination =({total = 1, limit = 20, change_page, page = 1})=>{
     const theme = useTheme();
     var range = [...Array(parseInt(total/limit)+1)].map((v,i) => i+1);
-    const test =({target})=>{
+    const _onClick =({target})=>{
         change_page(parseInt(target.textContent))
     }
+    const _goEnd=e=>{
+        e.preventDefault();
+        // console.log(range)
+        e.target.className.includes('backward')?change_page(1):change_page(range[range.length-1])
+    }
     return(
-        <Stack spacing={4} direction='row' align='center'>
+        <Stack className={"Pagination"} spacing={4} direction='row'>
+            <Button className={"backward"} onClick={_goEnd}> <FaStepBackward pointerEvents={"none"}></FaStepBackward> </Button>
             {range.map((index)=>(
-                <Button key={index} size='xs' backgroundColor={theme.extend_Theme.colors.main} color={theme.colors.white} onClick={test}>{index}</Button>
+                Math.abs(index - page) <= 2.5  && <Button className={ page == index ? "active":""} key={index} onClick={_onClick}>{index}</Button>
+                //size='xs' backgroundColor={theme.extend_Theme.colors.main} color={theme.colors.white}
             ))}
+            <Button className={"forward"} onClick={_goEnd}> <FaStepForward pointerEvents={"none"}></FaStepForward> </Button>
         </Stack>
     )
 }
