@@ -7,7 +7,7 @@ const Home_tab =({linkList})=>{
         <Tabs>
             <TabList>
                 {linkList.map((link)=>(
-                    <Link to={`${link}/`}>
+                    <Link key={link} to={`${link}/`}>
                         <Tab>{link}</Tab>
                     </Link>
                 ))}
