@@ -9,7 +9,6 @@ const Stack =()=>{
     const {stackid} = useParams();
     const { isLoading, data } = useQuery([`stack`, stackid], getStack);
     const { isLoading:StackIsLoading, data:StackCompany } = useQuery([`stackCompany`, stackid], getCompanyFromStack);
-    console.log(data)
     return(
         <Box>
             {!isLoading && data ?

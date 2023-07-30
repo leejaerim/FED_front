@@ -50,6 +50,7 @@ const CompanyDetail=()=>{
     const render = _ => {
         const items = []
         for (let key in type) {
+            if(!type[key].length) continue;
             items.push(<Box>
                 <Heading>{key}</Heading>
                 <Text>총 {type[key].length} 개의 스택</Text>
@@ -106,7 +107,7 @@ const CompanyDetail=()=>{
                             </HStack>
                         </CardBody>
                     </Card>
-                    <div id="map" style={{width: '26vw', height: '20vh'}}/>
+                    <div id="map" style={{width: '100%', height: '20vh'}}/>
                 </VStack>
                 <Box>
                     {!StackIsLoading && render()}

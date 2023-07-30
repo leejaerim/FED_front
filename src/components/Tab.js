@@ -8,7 +8,7 @@ const Home_tab =({linkList})=>{
             <TabList>
                 {linkList.map((link)=>(
                     <Link key={link} to={`${link}/`}>
-                        <Tab>{link}</Tab>
+                        <Tab>{link.toUpperCase()}</Tab>
                     </Link>
                 ))}
             </TabList>
